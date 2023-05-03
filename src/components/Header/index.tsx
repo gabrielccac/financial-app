@@ -7,7 +7,7 @@ export function Header() {
       <Content>
         <div className="flex-group">
           <img src={logoImg} alt="" />
-          <h1>Savefy</h1>
+          <h1>Piggy.io</h1>
         </div>
         <div className="flex-group">
           <button >New Transaction</button>

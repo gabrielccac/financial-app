@@ -47,6 +47,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    margin-top: 2rem;
     background: var(--clr-background);
     color: var(--clr-neutral-100);
     font-family: var(--ff-primary);
@@ -62,4 +63,11 @@ export const GlobalStyle = createGlobalStyle`
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  h2 {
+    font-size: 1rem;
+    font-weight: var(--fw-medium);
+    color: var(--clr-neutral-300);
+  }
+  
 `;
