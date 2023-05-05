@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
     --clr-background: #f8f9fa;
     --clr-outlines: #dbdbdb;
 
-    --clr-neutral-100: #212529;
+    --clr-neutral-100: #343a40;
     --clr-neutral-300: #554a62;
     --clr-neutral-400: #868e96;
     --clr-neutral-900: #f2f2fd;
