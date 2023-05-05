@@ -13,12 +13,12 @@ export function Header() {
     <Container>
       <Content>
         <div className='flex-group'>
-            <a href="">
-              <img
-                src={logoImg}
-                alt=''
-              />
-            </a>
+          <a href=''>
+            <img
+              src={logoImg}
+              alt=''
+            />
+          </a>
           <h1>Piggy.io</h1>
         </div>
         <div className='flex-group'>
@@ -27,8 +27,22 @@ export function Header() {
             className='new-transaction'>
             New Transaction
           </button>
-          <a className='links' href=""><img src={profileIcon} alt="" /> </a>
-          <a className='links' href=""><img src={settingsIcon} alt="" /> </a>
+          <a
+            className='links'
+            href=''>
+            <img
+              src={profileIcon}
+              alt=''
+            />{' '}
+          </a>
+          <a
+            className='links'
+            href=''>
+            <img
+              src={settingsIcon}
+              alt=''
+            />{' '}
+          </a>
         </div>
       </Content>
       <hr />
