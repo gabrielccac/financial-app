@@ -122,17 +122,17 @@ export const Container = styled.div`
   .layout-btns {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 1.5rem;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
   }
 
-  button[type='submit'] {
+  button.submit {
     font-weight: var(--fw-medium);
     color: #fff;
     background-color: #9775fe;
     width: 100%;
     padding: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     border: none;
     border-radius: 0.75rem;
     transition: filter 0.2s ease-in-out;

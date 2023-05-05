@@ -14,7 +14,7 @@ export function DataBox({icon, title, value}: DataBoxProps ) {
         <div className='flex-group'>
           <h2>{title}</h2>
           <div className='flex'>
-          <span className='dollar-sign'>$</span>
+          <span className='dollar-sign'>R$</span>
           <span>{value}</span>
           </div>
         </div>

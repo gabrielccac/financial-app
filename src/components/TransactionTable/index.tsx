@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
-import categoryArrow from '../../assets/categoriesArrow.svg';
+import React, { useState, useContext } from 'react';
 import { Container } from './styles';
 import { Transaction } from '../Transaction';
+import { TransactionsContext } from '../../TransactionsContext';
 
-interface Transaction {
-  name: string;
-  status: string;
-  value: string;
-  category: string;
-  type: string;
-  date: Date;
-}
+import categoryArrow from '../../assets/categoriesArrow.svg';
 
 // function handleTypeClick(e: React.MouseEvent<HTMLAnchorElement>) {
 //   if (e.currentTarget.classList.contains('deposit')) {
@@ -35,67 +28,33 @@ interface Transaction {
 // Props to be added to transaction {name, status, value, category, transactionDate}: Transaction
 
 export function TransactionTable() {
-  const transactionList = [
-    {
-      name: 'Desenvolvimento de Site',
-      status: 'Completed',
-      value: '1000,00',
-      category: 'Development',
-      date: new Date(2022, 1, 10),
-      type: 'deposit',
-    },
-    {
-      name: 'Curso de Programação',
-      status: 'Pending',
-      value: '59,99',
-      category: 'Education',
-      date: new Date(2022, 2, 10),
-      type: 'withdraw',
-    },
-    {
-      name: 'Compra do mês',
-      status: 'Completed',
-      value: '198,99',
-      category: 'Alimentação',
-      date: new Date(2022, 3, 10),
-      type: 'withdraw',
-    },
-    {
-      name: 'Salary',
-      status: 'Failed',
-      value: '3000,00',
-      category: 'Income',
-      date: new Date(2022, 4, 10),
-      type: 'deposit',
-    },
-  ];
-
-  // transactionList.map((transaction) => {
-  //   const [day, month, year] = transaction.date.split('/');
-  //   transaction.date = new Date(`${month}/${day}/${year}`);
-  // });
-
-  transactionList.sort(
-    (a, b) => parseFloat(a.value.replace(',', '.')) - parseFloat(b.value.replace(',', '.'))
-  );
+  const { transactions, setTransactions } = useContext(TransactionsContext);
 
   const [selectedType, setSelectedType] = useState('all');
-  const [transactions, setTransactions] = useState<Transaction[]>(transactionList);
   const [dateSort, setDateSort] = useState(false);
   const [valueSort, setValueSort] = useState(false);
 
+  // Melhorar a lógica de ordenação
+
   function handleArrow(e: React.MouseEvent<HTMLButtonElement>) {
     e.currentTarget.classList.toggle('rotate');
-    if (!valueSort) setTransactions((prevTransactionList) => [...prevTransactionList].reverse());
-    else setTransactions([...transactionList]);
+    if (!valueSort)
+      setTransactions(
+        [...transactions].sort(
+          (a, b) => parseFloat(a.value.replace(',', '.')) - parseFloat(b.value.replace(',', '.'))
+        )
+      );
+    else setTransactions([...transactions].reverse());
     setValueSort(!valueSort);
   }
 
   function handleDateArrow(e: React.MouseEvent<HTMLButtonElement>) {
     e.currentTarget.classList.toggle('rotate');
-    const dateSorted = [...transactionList].sort((a, b) => a.date.getTime() - b.date.getTime());
-    if (!dateSort) setTransactions(dateSorted);
-    else setTransactions([...transactionList]);
+    const dateSorted = [...transactions].sort(
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    if (!dateSort) setTransactions([...dateSorted].reverse());
+    else setTransactions(dateSorted);
     setDateSort(!dateSort);
   }
 
@@ -163,19 +122,34 @@ export function TransactionTable() {
               <tbody>
                 {(selectedType === 'all' &&
                   transactions.map((transaction) => {
-                    return <Transaction transaction={transaction} />;
+                    return (
+                      <Transaction
+                        transaction={transaction}
+                        key={transaction.description}
+                      />
+                    );
                   })) ||
                   (selectedType === 'deposit' &&
                     transactions
                       .filter((transaction) => transaction.type === 'deposit')
                       .map((transaction) => {
-                        return <Transaction transaction={transaction} />;
+                        return (
+                          <Transaction
+                            transaction={transaction}
+                            key={transaction.description}
+                          />
+                        );
                       })) ||
                   (selectedType === 'withdraw' &&
                     transactions
                       .filter((transaction) => transaction.type === 'withdraw')
                       .map((transaction) => {
-                        return <Transaction transaction={transaction} />;
+                        return (
+                          <Transaction
+                            transaction={transaction}
+                            key={transaction.description}
+                          />
+                        );
                       }))}
               </tbody>
             </table>

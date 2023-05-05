@@ -2,29 +2,32 @@ import { Container } from './styles.ts';
 
 interface transactionProps {
   transaction: {
-    name: string;
+    description: string;
     status: string;
     value: string;
     category: string;
     type: string;
-    date: Date;
+    createdAt: Date;
   };
 }
 
-export function Transaction({transaction}: transactionProps) {
-  const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  };
-  
+export function Transaction({ transaction }: transactionProps) {
+  // const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
+
   return (
     <Container>
-      <td>{transaction.name}</td>
-      <td><span className={transaction.status}>{transaction.status}</span></td>
-      <td>${transaction.value} </td>
+      <td>{transaction.description}</td>
+      <td>
+        <span className={transaction.status}>{transaction.status}</span>
+      </td>
+      <td>
+        {new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(Number(transaction.value.replace(',', '.')))}
+      </td>
       <td>{transaction.category}</td>
-      <td>{transaction.date.toLocaleString(undefined, options)}</td>
+      <td>{new Date(transaction.createdAt).toLocaleDateString()}</td>
     </Container>
   );
 }
